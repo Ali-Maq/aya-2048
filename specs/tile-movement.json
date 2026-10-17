@@ -1,0 +1,43 @@
+{
+  "feature": "Recover 2048 tile movement and scoring from a compiled open-source game",
+  "target_repository": "Ali-Maq/aya-2048",
+  "reference": {
+    "repository": "mevdschee/2048.c",
+    "revision": "90343eb209e84fa9687d596f5d5eecfdf7d4df51",
+    "license": "MIT",
+    "architecture": "Linux aarch64 ELF",
+    "build": [
+      "gcc -O1 -o 2048-linux-aarch64 2048.c",
+      "gcc -O1 -shared -fPIC -o lib2048-linux-aarch64.so 2048.c"
+    ],
+    "sha256": {
+      "2048-linux-aarch64": "11472ab1959ab0b81eaa93f00220bbf89120650de2f3ced45b14ee2f923b6213",
+      "LICENSE": "593783abd95546a2817d104b2656dd985a979a9e90da895729f211fc844b6402",
+      "lib2048-linux-aarch64.so": "72a34b7ac38419338ea78100da251bae8785d0cc4fa8bd805acefc4bf147da69",
+      "2048.c": "90f794c675a696aa10980dd120d1f0503ee4ed33a61fef92c7df8f443f5b18a8"
+    }
+  },
+  "interface": {
+    "slide(row)": "Return {row: four tiles, score_delta: int, moved: bool}. Move left with no random spawn.",
+    "move(board,direction)": "Return {board: 4x4 row-major tiles, score_delta: int, moved: bool}. direction is left/right/up/down. No random spawn."
+  },
+  "validation": {
+    "tiles": "Exact integers only: zero or powers of two from 2 through 2**20. Reject booleans, floats, negatives, nonpowers, out-of-range.",
+    "shape": "row is list of length four; board is list of four rows. Inputs remain unchanged.",
+    "errors": "Raise ValueError on invalid arguments."
+  },
+  "acceptance": [
+    "Faithful merge ordering and score increments matched against pinned native functions",
+    "Exhaustive 7**4 rows from {0,2,4,8,16,32,64}",
+    "Random boards in all directions, fresh seed separate from implementation",
+    "Generated module must not import ctypes, subprocess, network or native library; pure Python standard library",
+    "Original binary and source used only as independent reference; browser calls recovered module"
+  ],
+  "scope_excluded": [
+    "Random tile generation",
+    "Terminal rendering",
+    "Whole-game binary reconstruction",
+    "Windows support",
+    "Proof of superiority over another model"
+  ]
+}

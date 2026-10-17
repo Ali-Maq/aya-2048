@@ -1,0 +1,16 @@
+{
+  "repository": "mevdschee/2048.c",
+  "revision": "90343eb209e84fa9687d596f5d5eecfdf7d4df51",
+  "license": "MIT",
+  "architecture": "Linux aarch64 ELF",
+  "build": [
+    "gcc -O1 -o 2048-linux-aarch64 2048.c",
+    "gcc -O1 -shared -fPIC -o lib2048-linux-aarch64.so 2048.c"
+  ],
+  "sha256": {
+    "2048-linux-aarch64": "11472ab1959ab0b81eaa93f00220bbf89120650de2f3ced45b14ee2f923b6213",
+    "LICENSE": "593783abd95546a2817d104b2656dd985a979a9e90da895729f211fc844b6402",
+    "lib2048-linux-aarch64.so": "72a34b7ac38419338ea78100da251bae8785d0cc4fa8bd805acefc4bf147da69",
+    "2048.c": "90f794c675a696aa10980dd120d1f0503ee4ed33a61fef92c7df8f443f5b18a8"
+  }
+}
