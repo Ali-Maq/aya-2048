@@ -1,0 +1,3 @@
+{"at": "2026-10-17T22:23:41.785634+00:00", "event": "request_frozen", "issue": "https://github.com/Ali-Maq/aya-2048/issues/1", "target": "Ali-Maq/aya-2048", "base_commit": "00e7652"}
+{"at": "2026-10-17T22:23:52.129368+00:00", "event": "plan_completed", "provider": "Crusoe", "endpoint": "https://api.inference.crusoecloud.com/v1", "model": "deepseek-ai/DeepSeek-V4-Pro", "response_id": "ed193749f4af4ff397373b4210639d0a", "usage": {"prompt_tokens": 660, "total_tokens": 1590, "completion_tokens": 930, "prompt_tokens_details": null, "reasoning_tokens": 0}}
+{"at": "2026-10-17T22:23:53.891837+00:00", "event": "worker_started", "role": "recovery", "sandbox": "aya-feature", "workspace": "/sandbox/aya/game-2048", "provider": "Crusoe", "model": "deepseek-ai/DeepSeek-V4-Pro"}
