@@ -1,0 +1,7 @@
+{
+  "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+  "image": "sha256:b10269b9b3c49a18e069579571315bda92867ef586bfade1e4666fd84accd027",
+  "architecture": "aarch64",
+  "source_changed": false,
+  "symbols": "retained; no debug flag; gcc -O1"
+}

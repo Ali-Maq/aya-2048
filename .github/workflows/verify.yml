@@ -1,0 +1,36 @@
+name: Verify recovered mechanic
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  native-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify pinned upstream source
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib
+          data=json.loads(pathlib.Path('evidence/provenance.json').read_text())
+          for name,digest in data['sha256'].items():
+              assert hashlib.sha256(pathlib.Path('reference',name).read_bytes()).hexdigest()==digest, name
+          PY
+      - name: Compile unchanged reference for runner architecture
+        run: gcc -O1 -shared -fPIC -o /tmp/lib2048.so reference/2048.c
+      - name: Agent unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Pull isolated candidate runtime
+        run: docker pull python:3.12-slim
+      - name: Exhaustive rows and randomized boards
+        run: python tools/verify.py --native-library /tmp/lib2048.so --output /tmp/verification.json
+      - name: Fresh held-out boards and contract rejection
+        run: python tools/verify.py --native-library /tmp/lib2048.so --holdout --seed 77173291 --output /tmp/holdout.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: independent-native-parity
+          path: |
+            /tmp/verification.json
+            /tmp/holdout.json
